@@ -1,4 +1,4 @@
-package com.example.nearbyglasses
+package ch.pocketpc.nearbyglasses
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
@@ -48,3 +48,4 @@ object Notifs {
             .setPriority(NotificationCompat.PRIORITY_HIGH)
             .build()
 }
+
