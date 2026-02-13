@@ -7,7 +7,8 @@ attempting detect Meta Ray-Ban smart glasses nearby
 - Meta Ray-Ban smart glasses have been used for instant facial recognition before [4](https://www.404media.co/someone-put-facial-recognition-tech-onto-metas-smart-glasses-to-instantly-dox-strangers/) and repordedly will be out of the box [5](https://www.nytimes.com/2026/02/13/technology/meta-facial-recognition-smart-glasses.html).
 
 ## how?
-- It's a simple heurisitc approach. Because BTLE uses randomised MAC and the OSSID are not stable, nor the UUID of the service annoucement, I can't just scan for the bluetooth beacons. And, to make thinks even more dire, Meta uses proprietary Bluetooth services and UUIDs are not stable, we can only rely on the communicated device names for now.
+- It's a simple heurisitc approach. Because BTLE uses randomised MAC and the OSSID are not stable, nor the UUID of the service annoucement, I can't just scan for the bluetooth beacons. And, to make thinks even more dire, Meta uses proprietary Bluetooth services and UUIDs are not stable, ~~we can only rely on the communicated device names for now~~.
+- from the BT SIG documentation, I've learned we can look for the company ID (meta is 0x0331) in the packet advertising header of BTLE beacons. **Will work on that approach asap**.
 - When the app recognised a BTLE device with a sufficiant signal strength, it will push an alert message.
 
 ## todo
