@@ -13,3 +13,6 @@ It's a simple heurisitc approach. Because BTLE uses randomised MAC and the OSSID
 
 When the app recognised a BTLE device with a sufficiant signal strength, it will push an alert message.
 
+## todo
+
+fyi, it's not working yet on the repo nor is the code complete. I have a prototype app here running. As soon as I get some spare time and figure some last things out, I will push this app to google play, too. I still have some developer certificate around I could use for that.
