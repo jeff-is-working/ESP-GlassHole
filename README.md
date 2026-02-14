@@ -10,7 +10,7 @@ attempting detect Meta Ray-Ban smart glasses nearby
 - It's a simple heurisitc approach. Because BTLE uses randomised MAC and the OSSID are not stable, nor the UUID of the service annoucement, I can't just scan for the bluetooth beacons. And, to make thinks even more dire, Meta uses proprietary Bluetooth services and UUIDs are not stable, ~~we can only rely on the communicated device names for now~~.
 - from the BT SIG documentation, I've learned we can look for the company ID (meta is 0x0331) in the packet advertising header of BTLE beacons. **Will work on that approach asap**.
  - this is what BTLE advertising frames look like:
-   ```
+```
 Frame 1: Advertising (ADV_IND)
 Time:  0.591232 s
 Address: C4:7C:8D:1E:2B:3F (Random Static)
@@ -29,7 +29,7 @@ Manufacturer Specific Data:
 Service UUIDs:
   Complete List of 16-bit Service UUIDs
   0xFEAA
-  ```
+```
 - When the app recognised a BTLE device with a sufficiant signal strength, it will push an alert message.
 
 ## todo
