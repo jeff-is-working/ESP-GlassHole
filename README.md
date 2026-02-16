@@ -51,6 +51,7 @@ Service UUIDs:
   - `0x01AB` for `Meta Platforms, Inc. (formerly Facebook)`
   - `0x058E` for `Meta Platforms Technologies, LLC`
   - `0x0D53` for `Luxottica Group S.p.A` (Who manufacturers the Meta Ray-Bans)
+  - `0x03C2` for `Snapchat, Inc.`, that makes SNAP Spectacles
   They are **immutable and mandatory**. Of course, Meta and other manufacturers also have other products that come with Bluetooth and therefore their ID, e.g. VR Headsets. Therefore, using these company ID codes for the app's scanning process is prone to false positives. But if you can't see someone wearing an occulus rift around you and there are no buildings where they could hide, chances are good that it's smart glasses instead.
 - During pairing, the smart glasses usually emmit their product name, so we can scan for that, too. But it's rare we will see that in the field. People with the intention to use smart glasses in bars, pubs, on the street, and elsewhere usually prepare for that beforehand.
 - When the app recognised a BTLE device with a sufficiant signal strength (see RSI below), it will push an alert message. This shall help you to act accordingly.
