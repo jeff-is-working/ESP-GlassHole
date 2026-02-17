@@ -110,7 +110,7 @@ RSSI drops roughly according to<br/>
 - I pushed *Nearby Glasses* to Google Play, too. However, I will always publish [releases here on GitHub](https://github.com/yjeanrenaud/yj_nearbyglasses/releases) and [elsewhere](https://yves.app/nearbyglasses/latest.apk) for those that avoid the Google Play.
 - I am no BT or Android expert at all. For what I've learned, one could also dig deeper into the communication of the smart glasses by sniffing the BLE traffic. By doing so, we would likely not need to rely on the device behaving according to the BT specifications but could also use heuristics on the encrypted traffic transmissions without much false positives. But I haven't looked into BT traffic packets for more than ten years. I'm glad I remembered ADV frames... So if anybody could help on this, that'd be greatly appreciated!
 - Move all hard-coded texts into `strings.xml` for easier localisation. Right now, the app is available in English only.
-- Add **more manufacturers IDs** of smart glasses. Right now, it's Meta, Oakly and Snap.
+- Add **more manufacturers IDs** of smart glasses. Right now, it's Meta, Oakley and Snap. A list of smart glasses with cameras available would help, too.
 - An **iOS app** would be easy to adapt, too. But I don't have the toolchain at hands right now.
 
 ## Licencse and Credits
