@@ -10,7 +10,7 @@ attempting to detect smart glasses nearby and warn you.
 # Nearby Glasses 
 The app, called *Nearby Glasses*, has one sole purpose: Look for smart glasses nearby and warn you.
 
-<a href="https://play.google.com/store/apps/details?id=ch.pocketpc.nearbyglasses" target="_blank"><img width="239" height="71" alt="Get It On Google Play" src="https://github.com/user-attachments/assets/337343d9-6868-485b-9a9a-1d9a99ca9cf0" /></a>
+<a href="https://play.google.com/store/apps/details?id=ch.pocketpc.nearbyglasses" target="_blank"><img width="239" height="71" alt="Get It On Google Play" src="https://github.com/user-attachments/assets/0feb46d1-969e-4f83-8fc7-c18d1bbed8ad" /></a>
 
 This app notifies you when smart glasses are nearby. It uses company identificators in the Bluetooth data sent out by these. Therefore, there likely are false positives (e.g. from VR headsets). Hence, please proceed with caution when approaching a person nearby wearing glasses. They might just be regular glasses, despite this app’s warning.
         
