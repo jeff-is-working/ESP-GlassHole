@@ -1,16 +1,16 @@
 # yj_nearbyglasses
 attempting to detect smart glasses nearby and warn you.
-<img width="270" height="600" align ="right" alt="Screenshot Nearby Glasses" src="https://github.com/user-attachments/assets/17565448-b285-4841-b07e-ba0dabe0b181" />
+<img width="270" height="600" align ="right" alt="Screenshot Nearby Glasses" src="https://github.com/yjeanrenaud/yj_nearbyglasses/blob/main/img/Screenshot%20Nearby%20Glasses%20(2).png" />
 # ⚠ WARNING! ⚠ 
 **HARASSING someone because you think they are wearing a covert surveillance device can be a criminal offence. It may even be a more serious offence than using such a device. Please seek legal advise regarding your local laws on this matter.**
 ---
-# ⚠ DO NOT HARASS ANYONE AT ALL ⚠
+## ⚠ DO NOT HARASS ANYONE AT ALL ⚠
 ---
 
 # Nearby Glasses 
 The app, called *Nearby Glasses*, has one sole purpose: Look for smart glasses nearby and warn you.
 
-<a href="https://play.google.com/store/apps/details?id=ch.pocketpc.nearbyglasses" target="_blank"><img width="239" height="71" alt="Get It On Google Play" src="https://github.com/user-attachments/assets/0feb46d1-969e-4f83-8fc7-c18d1bbed8ad" /></a>
+<a href="https://play.google.com/store/apps/details?id=ch.pocketpc.nearbyglasses" target="_blank"><img width="239" height="71" alt="Get It On Google Play" src="https://github.com/yjeanrenaud/yj_nearbyglasses/blob/main/img/Screenshot%20Nearby%20Glasses%20(8).png" /></a>
 
 This app notifies you when smart glasses are nearby. It uses company identificators in the Bluetooth data sent out by these. Therefore, there likely are false positives (e.g. from VR headsets). Hence, please proceed with caution when approaching a person nearby wearing glasses. They might just be regular glasses, despite this app’s warning.
         
@@ -31,7 +31,7 @@ Please do not act rashly. **Think before you act upon any messages** (not only f
   
 ## How?
 - It's a simple rather heuristic approach. Because BLE uses randomised MAC and the OSSID are not stable, nor the UUID of the service announcements, you can't just scan for the bluetooth beacons. And, to make thinks even more dire, some like Meta, for instance, use proprietary Bluetooth services and UUIDs are not persistent, ~~we can only rely on the communicated device names for now~~.
-- The currently **most viable approach** comes from the [Bluetooth SIG assigned numbers repo](www.bluetooth.com/specifications/assigned-numbers/). Following this, the manufacturer company's name shows up as number codes in the packet advertising header (ADV) of BLE beacons.
+- The currently **most viable approach** comes from the [Bluetooth SIG assigned numbers repo](https://www.bluetooth.com/specifications/assigned-numbers/). Following this, the manufacturer company's name shows up as number codes in the packet advertising header (ADV) of BLE beacons.
  - this is what BLE advertising frames look like:
 ```
 Frame 1: Advertising (ADV_IND)
@@ -92,7 +92,7 @@ RSSI drops roughly according to<br/>
    - German
    - Swiss German
    - French
-   - more to come
+   - more to come, eventually
 
 ## Usage
 
@@ -123,14 +123,23 @@ RSSI drops roughly according to<br/>
 - **It's now working in the wild!** I managed to get some people testing it with verified smart glasses around them. Special thanks to Lena!
 - See [Releases](https://github.com/yjeanrenaud/yj_nearbyglasses/releases) for APK to download. 
 - I pushed [*Nearby Glasses* to Google Play](https://play.google.com/store/apps/details?id=ch.pocketpc.nearbyglasses), too. However, I will always publish [releases here on GitHub](https://github.com/yjeanrenaud/yj_nearbyglasses/releases) and [elsewhere](https://yves.app/nearbyglasses/latest.apk), for those that avoid the Google Play.
-- I am no BT or Android expert at all. For what I've learned, one could also dig deeper into the communication of the smart glasses by sniffing the BLE traffic. By doing so, we would likely not need to rely on the device behaving according to the BT specifications but could also use heuristics on the encrypted traffic transmissions without much false positives. But I haven't looked into BT traffic packets for more than ten years. I'm glad I remembered ADV frames... So if anybody could help on this, that'd be greatly appreciated!
+
+---
+
 - **Rework to canary mode**. I am looking into the suggestion I got on mastodon to steer away from *warning* for smart glasses and rather let the app tell *there are no smart glasses found so far*. This means, I must rwork the scanner logic a bit and the interface
 - Add an option to set false positives to an ignore list. Maybe in the notification?
+- I am no BT or Android expert at all. For what I've learned, one could also dig deeper into the communication of the smart glasses by sniffing the BLE traffic. By doing so, we would likely not need to rely on the device behaving according to the BT specifications but could also use heuristics on the encrypted traffic transmissions without much false positives. But I haven't looked into BT traffic packets for more than ten years. I'm glad I remembered ADV frames... So if anybody could help on this, that'd be greatly appreciated!
 ---
 - Add **more manufacturers IDs** of smart glasses. Right now, it's Meta, Oakley and Snap. A list of smart glasses with cameras available would help, too.
 - An **iOS app** might be possible, too. I have the toolchain now, but I will need a Mac to submit it to the Apple App Store in the end. And I need to dig deeper into iOS development-
 - There **layout issue** with **Google Pixel devices** seems to be fixed as of Version 1.0.3. If you still can't reach the menu as it's mixed with the status bar somehow. Will look into that asap. Meanwhile, try to put your screen to landscape mode and rotate *clockwise (to the right)*. 
 
-## Licencse and Credits
+## Shoutouts
+- [@vfrmedia@social.tchncs.de](https://social.tchncs.de/@vfrmedia) for helping me with the warnings
+- [@mewsleah@meow.social](https://meow.social/@mewsleah) for pointing out the idea of a canary mode (yet to be implemented)
+- @pojntfx for pointing out my misunderstandings with licensing
+- All that already provided feedback to the app
+
+## License and Credits
 **App Icon**: The icon is based on [Eyeglass icons created by Freepik - Flaticon](https://www.flaticon.com/free-icons/eyeglass)<br/>
-**License**:  This app *Nearby Glasses* is licensed under [PolyForm Noncommercial License 1.0.0](LICENSE).<br/>
+**License**:  This app *Nearby Glasses* is licensed under the [AGPL-3.0 license](LICENSE).<br/>
