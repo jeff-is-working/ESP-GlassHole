@@ -31,7 +31,6 @@ firmware/                        ESP32 firmware (PlatformIO)
   platformio.ini                 Multi-board build config (esp32dev, esp32-s3, esp32-c3, xiao-s3)
 .github/workflows/
   release.yml                    CI: build all boards on tagged release, attach .bin to GitHub Release
-app/                             Original Android app (upstream, not actively developed)
 ```
 
 ## Detection Methods (priority order)

@@ -204,7 +204,6 @@ firmware/                       ESP32 firmware (PlatformIO)
   platformio.ini                Multi-board build configuration
 .github/workflows/
   release.yml                   CI: build firmware for all boards on tagged release
-app/                            Original Android app (upstream, not actively developed)
 ```
 
 ## Contributing
@@ -218,9 +217,14 @@ To add a new glasses manufacturer, edit [`firmware/include/glasses_database.h`](
 - **MAC OUI prefix**: `GLASSES_OUI_PREFIXES[]` — from IEEE MA-L registry or field captures
 - **Service UUID**: `GLASSES_SERVICE_UUIDS[]` — 16-bit BLE service UUIDs
 
+## Origin
+
+This project is a [fork](https://github.com/yjeanrenaud/yj_nearbyglasses) of **Nearby Glasses** by [Yves Jeanrenaud](https://github.com/yjeanrenaud), an Android app that detects smart glasses via BLE. ESP-GlassHole is a complete reimplementation for ESP32 microcontrollers — no upstream code is used, but the detection concept and BLE company ID research informed the design.
+
+The original Android app source is available at the [upstream repository](https://github.com/yjeanrenaud/yj_nearbyglasses). This project is independently maintained and is not affiliated with the upstream author.
+
 ## Related Projects
 
-- [yj_nearbyglasses](https://github.com/yjeanrenaud/yj_nearbyglasses) — Android app that inspired this project (upstream fork)
 - [glass-detect](https://github.com/sh4d0wm45k/glass-detect) — ESP32 "GLASSHOLE" LED sign
 - [banrays](https://github.com/NullPxl/banrays) — Wearable glasses that detect smart glasses
 - [ouispy-detector](https://github.com/colonelpanichacks/ouispy-detector) — Multi-target BLE scanner
@@ -234,4 +238,4 @@ This is an educational and security research tool. It performs passive, receive-
 
 ## License
 
-[AGPL-3.0](LICENSE) (inherited from [upstream](https://github.com/yjeanrenaud/yj_nearbyglasses))
+[AGPL-3.0](LICENSE) — inherited from [upstream](https://github.com/yjeanrenaud/yj_nearbyglasses). This project is independently maintained; the upstream author bears no responsibility for this fork.
