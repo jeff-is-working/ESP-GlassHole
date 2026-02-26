@@ -83,7 +83,7 @@ pio device monitor              # Serial monitor (115200 baud)
 ## Serial Protocol (USB, 115200 baud)
 
 ```json
-{"type":"boot","board":"ESP32","version":"1.0.0"}
+{"type":"boot","board":"ESP32","version":"2.0.0"}
 {"type":"detection","mac":"7c:2a:9e:xx:xx:xx","company":"Meta Platforms","product":"Ray-Ban Meta","reason":"Company ID 0x01AB (Meta Platforms)","rssi":-62,"hasCamera":true,"tier":0,"companyId":"0x01AB","ts":12345}
 {"type":"status","board":"ESP32","uptime":60,"freeHeap":145000,"totalScans":12,"totalDetections":3,"trackedDevices":2,"alertActive":true}
 {"type":"heartbeat","uptime":90,"freeHeap":144800}

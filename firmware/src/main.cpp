@@ -519,7 +519,7 @@ void setup() {
     }
     ledIdle();
 
-    Serial.println("{\"type\":\"boot\",\"board\":\"" BOARD_TYPE "\",\"version\":\"1.0.0\"}");
+    Serial.println("{\"type\":\"boot\",\"board\":\"" BOARD_TYPE "\",\"version\":\"2.0.0\"}");
 
     lastStatusTime = millis();
     lastHeartbeatTime = millis();

@@ -92,10 +92,10 @@ Download a pre-built `.bin` from the [latest release](https://github.com/jeff-is
 pip install esptool
 
 # ESP32 DevKit
-esptool.py --chip esp32 --port /dev/ttyUSB0 write_flash 0x0 ESP-GlassHole-esp32dev-v1.0.0.bin
+esptool.py --chip esp32 --port /dev/ttyUSB0 write_flash 0x0 ESP-GlassHole-esp32dev-v2.0.0.bin
 
 # ESP32-S3
-esptool.py --chip esp32s3 --port /dev/ttyACM0 write_flash 0x0 ESP-GlassHole-esp32-s3-v1.0.0.bin
+esptool.py --chip esp32s3 --port /dev/ttyACM0 write_flash 0x0 ESP-GlassHole-esp32-s3-v2.0.0.bin
 ```
 
 On macOS, the port is typically `/dev/cu.usbserial-*` or `/dev/cu.usbmodem*`.
