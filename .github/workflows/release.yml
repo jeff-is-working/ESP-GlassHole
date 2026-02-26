@@ -27,6 +27,7 @@ jobs:
     runs-on: ubuntu-latest
 
     strategy:
+      fail-fast: false
       matrix:
         include:
           - env: esp32dev
@@ -62,8 +63,8 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Install PlatformIO
-        run: pip install --upgrade platformio
+      - name: Install PlatformIO and esptool
+        run: pip install --upgrade platformio esptool
 
       - name: Build firmware (${{ matrix.env }})
         run: pio run -e ${{ matrix.env }}
