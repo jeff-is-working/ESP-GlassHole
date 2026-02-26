@@ -24,12 +24,13 @@ Completely passive — receive-only BLE scanning, no transmission.
 
 ```
 firmware/                        ESP32 firmware (PlatformIO)
-  src/main.cpp                   Main: BLE scan, detection engine, LED control, JSON output
+  src/main.cpp                   Detection engine, LED control, serial JSON output
   include/
     glasses_database.h           Detection database: company IDs, OUIs, names, UUIDs
-    config.h                     Tunable settings: RSSI, tiers, timing, LED
-  platformio.ini                 Multi-board build config
-
+    config.h                     Compile-time settings: RSSI, tiers, timing, LED
+  platformio.ini                 Multi-board build config (esp32dev, esp32-s3, esp32-c3, xiao-s3)
+.github/workflows/
+  release.yml                    CI: build all boards on tagged release, attach .bin to GitHub Release
 app/                             Original Android app (upstream, not actively developed)
 ```
 
@@ -37,9 +38,9 @@ app/                             Original Android app (upstream, not actively de
 
 1. **BLE Company ID** (primary) — mandatory in BT spec, cannot be randomized
 2. **BLE Service UUID** — Meta 0xFD5F, Google Eddystone
-3. **Device name patterns** — "rayban", "spectacles", "vuzix", etc.
-4. **MAC OUI prefix** — supplementary heuristic (BLE MACs can be random)
-5. **Manufacturer data fingerprint** — "META_RB_GLASS" byte sequence
+3. **Device name patterns** — "rayban", "spectacles", "vuzix", etc. (16 patterns)
+4. **Manufacturer data fingerprint** — "META_RB_GLASS" byte sequence
+5. **MAC OUI prefix** — supplementary heuristic (BLE MACs can be random)
 
 ## Detection Tiers
 
@@ -73,7 +74,12 @@ pio run -e esp32dev -t upload   # Flash
 pio device monitor              # Serial monitor (115200 baud)
 ```
 
-PlatformIO path on this Mac: `/Users/jeffrecords/.platformio/penv/bin/pio`
+## Release Process
+
+1. Update the version string in `main.cpp` (search for `"version"`)
+2. Commit and push to `main`
+3. `git tag v1.x.x && git push origin v1.x.x`
+4. CI builds merged .bin files for all 4 boards and creates a GitHub Release
 
 ## Serial Protocol (USB, 115200 baud)
 
@@ -90,15 +96,7 @@ PlatformIO path on this Mac: `/Users/jeffrecords/.platformio/penv/bin/pio`
 - **Add new name pattern:** `glasses_database.h` → `GLASSES_NAME_PATTERNS[]`
 - **Change RSSI / timing:** `config.h`
 - **Change LED behavior:** `main.cpp` → `updateLED()`, `getBlinkRate()`
-
-## Research Sources
-
-- [yj_nearbyglasses](https://github.com/yjeanrenaud/yj_nearbyglasses) — BLE company ID detection (Android)
-- [glass-detect](https://github.com/sh4d0wm45k/glass-detect) — ESP32 "GLASSHOLE" LED, OUI-based
-- [banrays](https://github.com/NullPxl/banrays) — wearable glasses detector, found 0xFD5F + META_RB_GLASS
-- [ouispy-detector](https://github.com/colonelpanichacks/ouispy-detector) — multi-target BLE OUI scanner
-- [NordicSemiconductor/bluetooth-numbers-database](https://github.com/NordicSemiconductor/bluetooth-numbers-database) — BLE company ID registry
-- [Bluetooth SIG Assigned Numbers](https://www.bluetooth.com/specifications/assigned-numbers/)
+- **CI/CD workflow:** `.github/workflows/release.yml`
 
 ## Gotchas
 
@@ -108,3 +106,4 @@ PlatformIO path on this Mac: `/Users/jeffrecords/.platformio/penv/bin/pio`
 - LOW tier is off by default because Apple/Samsung/Xiaomi IDs would trigger on phones constantly
 - ESP32 (original) only supports BLE 4.x Legacy Advertising — sufficient for glasses
 - `huge_app.csv` partition table required due to BLE library size
+- `*advertisedDevice.getAddress().getNative()` — must dereference pointer-to-array, returns `uint8_t(*)[6]` not `uint8_t*`

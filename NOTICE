@@ -1,19 +1,25 @@
-This project includes third-party libraries:
+ESP-GlassHole
+Copyright 2025 Jeff Records / Circle 6 Systems
 
-1. kotlinx.coroutines
-   Copyright 2016-2024 JetBrains
-   Licensed under the Apache License, Version 2.0
-https://github.com/Kotlin/kotlinx.coroutines
+Forked from yj_nearbyglasses by Yves Jeanrenaud
+  https://github.com/yjeanrenaud/yj_nearbyglasses
 
-2. AndroidX libraries
-   Copyright The Android Open Source Project
-   Licensed under the Apache License, Version 2.0
-https://github.com/androidx/androidx
+This project includes or is informed by:
 
-A copy of the Apache License 2.0 is included in Apache-2.0.txt.
+1. ArduinoJson by Benoit Blanchon
+   Licensed under the MIT License
+   https://github.com/bblanchon/ArduinoJson
 
-3. The CLa is licensed under Creative Commons Attribution 3.0 Unported License.
-   by Harmony Agreements https://www.harmonyagreements.org/agreements
+2. NordicSemiconductor bluetooth-numbers-database
+   Licensed under the Nordic 5-Clause License
+   https://github.com/NordicSemiconductor/bluetooth-numbers-database
 
-A copy of the  Creative Commons Attribution 3.0 Unported License is included in ccby3up.txt.
+3. Detection logic informed by:
+   - glass-detect (sh4d0wm45k) — ESP32 smart glasses detector
+   - banrays (NullPxl) — wearable glasses detector
+   - ouispy-detector (colonelpanichacks) — BLE OUI scanner
 
+BLE Company IDs from Bluetooth SIG Assigned Numbers registry:
+  https://www.bluetooth.com/specifications/assigned-numbers/
+
+OUI prefixes from IEEE MA-L registry and field captures.

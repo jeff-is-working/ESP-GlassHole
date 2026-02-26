@@ -1,0 +1,167 @@
+# ==========================================================
+# ESP-GlassHole — Build & Release Firmware
+# ==========================================================
+#
+# Triggers on version tags (v1.0.0, v2.3.1, etc.)
+# Builds firmware for all supported ESP32 boards.
+# Produces merged .bin files (bootloader + partitions + app)
+# and attaches them to a GitHub Release.
+#
+# Users flash with:
+#   esptool.py --chip esp32 write_flash 0x0 ESP-GlassHole-esp32dev-v1.0.0.bin
+#
+# ==========================================================
+
+name: Build & Release Firmware
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        include:
+          - env: esp32dev
+            chip: esp32
+            bootloader_offset: "0x1000"
+          - env: esp32-s3
+            chip: esp32s3
+            bootloader_offset: "0x0000"
+          - env: esp32-c3
+            chip: esp32c3
+            bootloader_offset: "0x0000"
+          - env: xiao-s3
+            chip: esp32s3
+            bootloader_offset: "0x0000"
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Cache PlatformIO
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cache/pip
+            ~/.platformio/.cache
+          key: ${{ runner.os }}-pio-${{ matrix.env }}-${{ hashFiles('firmware/platformio.ini') }}
+          restore-keys: |
+            ${{ runner.os }}-pio-${{ matrix.env }}-
+            ${{ runner.os }}-pio-
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install PlatformIO
+        run: pip install --upgrade platformio
+
+      - name: Build firmware (${{ matrix.env }})
+        run: pio run -e ${{ matrix.env }}
+        working-directory: firmware
+
+      - name: Merge into single flashable binary
+        run: |
+          BUILD_DIR="firmware/.pio/build/${{ matrix.env }}"
+
+          # Verify required build outputs
+          for f in bootloader.bin partitions.bin firmware.bin; do
+            if [ ! -f "$BUILD_DIR/$f" ]; then
+              echo "ERROR: $BUILD_DIR/$f not found"
+              ls -la "$BUILD_DIR/"
+              exit 1
+            fi
+          done
+
+          # Locate boot_app0.bin from framework packages
+          BOOT_APP0=$(find ~/.platformio/packages -name "boot_app0.bin" -path "*/partitions/*" | head -1)
+          if [ -z "$BOOT_APP0" ]; then
+            echo "WARNING: boot_app0.bin not found, building without OTA selector"
+            BOOT_APP0_ARGS=""
+          else
+            BOOT_APP0_ARGS="0xe000 $BOOT_APP0"
+          fi
+
+          # Merge all binaries into a single flashable image
+          python -m esptool --chip ${{ matrix.chip }} merge_bin \
+            --output "ESP-GlassHole-${{ matrix.env }}.bin" \
+            --flash_mode dio \
+            --flash_size 4MB \
+            ${{ matrix.bootloader_offset }} "$BUILD_DIR/bootloader.bin" \
+            0x8000 "$BUILD_DIR/partitions.bin" \
+            $BOOT_APP0_ARGS \
+            0x10000 "$BUILD_DIR/firmware.bin"
+
+          ls -lh "ESP-GlassHole-${{ matrix.env }}.bin"
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: firmware-${{ matrix.env }}
+          path: ESP-GlassHole-${{ matrix.env }}.bin
+
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Download all firmware artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: release-assets
+          pattern: firmware-*
+          merge-multiple: true
+
+      - name: Rename assets with version tag
+        run: |
+          cd release-assets
+          TAG="${{ github.ref_name }}"
+          for f in ESP-GlassHole-*.bin; do
+            NEWNAME="${f%.bin}-${TAG}.bin"
+            mv "$f" "$NEWNAME"
+            echo "  $f -> $NEWNAME"
+          done
+          ls -lh
+
+      - name: Generate SHA256 checksums
+        run: |
+          cd release-assets
+          sha256sum *.bin > SHA256SUMS.txt
+          cat SHA256SUMS.txt
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          generate_release_notes: true
+          files: |
+            release-assets/*.bin
+            release-assets/SHA256SUMS.txt
+          body: |
+            ## Firmware Binaries
+
+            Each `.bin` is a merged, single-file firmware image containing the bootloader, partition table, and application. Flash with a single command:
+
+            ```bash
+            pip install esptool
+
+            # Replace BOARD, CHIP, and PORT for your setup
+            esptool.py --chip CHIP --port PORT write_flash 0x0 ESP-GlassHole-BOARD-${{ github.ref_name }}.bin
+            ```
+
+            | File | Board | Chip Flag |
+            |------|-------|-----------|
+            | `ESP-GlassHole-esp32dev-${{ github.ref_name }}.bin` | Generic ESP32 DevKit | `--chip esp32` |
+            | `ESP-GlassHole-esp32-s3-${{ github.ref_name }}.bin` | ESP32-S3 DevKitC-1 | `--chip esp32s3` |
+            | `ESP-GlassHole-esp32-c3-${{ github.ref_name }}.bin` | ESP32-C3 DevKitM-1 | `--chip esp32c3` |
+            | `ESP-GlassHole-xiao-s3-${{ github.ref_name }}.bin` | Seeed XIAO ESP32-S3 | `--chip esp32s3` |
+
+            Verify downloads: `sha256sum -c SHA256SUMS.txt`

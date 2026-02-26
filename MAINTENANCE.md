@@ -1,7 +1,30 @@
-This app's code will get some more tweaks an updates as my resources allow me to. blBut that is just my plan.
+# Maintenance
 
-I am not super confident for how long this will be and to what extent. Right now, it's just a hobby project in hope someone would find it useful. I am open to issues and bug reports, suggestions and ideas for improving the *Nearby Glasses* app, but I can't guarantee to implement anything of it sooner or later.
+This project is actively maintained by [Jeff Records](https://github.com/jeff-is-working) / Circle 6 Systems.
 
-Hebce, it is advisable to take this code as experimental, with no liability and guarantees attached to it.
+## Release Process
 
-I will update this maintenance file if anything changes, too.
+1. Update the version string in `firmware/src/main.cpp` (search for `"version"`)
+2. Commit and push to `main`
+3. Tag the release: `git tag v1.x.x && git push origin v1.x.x`
+4. GitHub Actions automatically builds firmware for all supported boards and creates a release with downloadable `.bin` files
+
+## Keeping the Detection Database Current
+
+Smart glasses manufacturers change BLE advertisement formats, add new products, and register new Bluetooth SIG company IDs. To keep the database accurate:
+
+- Monitor the [Bluetooth SIG Assigned Numbers](https://www.bluetooth.com/specifications/assigned-numbers/) registry for new company ID assignments
+- Check product teardowns and FCC filings for BLE advertisement details
+- Field-test with actual devices when possible
+- Review community reports in GitHub Issues
+
+## Supported Boards
+
+Firmware is built and tested for:
+
+| Board | PlatformIO Environment | Status |
+|-------|----------------------|--------|
+| ESP32 DevKit (generic) | `esp32dev` | Primary target, actively tested |
+| ESP32-S3 DevKitC-1 | `esp32-s3` | Supported |
+| ESP32-C3 DevKitM-1 | `esp32-c3` | Supported |
+| Seeed XIAO ESP32-S3 | `xiao-s3` | Supported |
