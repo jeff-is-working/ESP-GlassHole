@@ -442,7 +442,7 @@ class GlassholeScanCallbacks : public BLEAdvertisedDeviceCallbacks {
 
         // 4. Check MAC OUI prefix (supplementary)
         if (!detected) {
-            const uint8_t* nativeAddr = advertisedDevice.getAddress().getNative();
+            const uint8_t* nativeAddr = *advertisedDevice.getAddress().getNative();
             detected = checkOUIPrefix(nativeAddr, result);
         }
 
@@ -451,7 +451,7 @@ class GlassholeScanCallbacks : public BLEAdvertisedDeviceCallbacks {
         // --- Detection confirmed ---
 
         // Get MAC for deduplication
-        const uint8_t* mac = advertisedDevice.getAddress().getNative();
+        const uint8_t* mac = *advertisedDevice.getAddress().getNative();
 
         // Check cooldown
         if (isDeviceCoolingDown(mac)) return;
