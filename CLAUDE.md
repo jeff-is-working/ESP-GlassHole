@@ -4,7 +4,7 @@
 
 ESP32 BLE scanner that detects AR/smart glasses nearby and flashes the LED as a visual alert. Forked from [yj_nearbyglasses](https://github.com/yjeanrenaud/yj_nearbyglasses) (Android app) and reimplemented as standalone ESP32 firmware.
 
-**Author:** Jeff Records / Circle 6 Systems
+**Author:** Jeff Records
 **Repo:** [jeff-is-working/ESP-GlassHole](https://github.com/jeff-is-working/ESP-GlassHole)
 **Upstream:** [yjeanrenaud/yj_nearbyglasses](https://github.com/yjeanrenaud/yj_nearbyglasses)
 **License:** AGPL-3.0 (inherited from upstream)

@@ -1,6 +1,6 @@
 # Maintenance
 
-This project is actively maintained by [Jeff Records](https://github.com/jeff-is-working) / Circle 6 Systems.
+This project is actively maintained by [Jeff Records](https://github.com/jeff-is-working).
 
 ## Release Process
 

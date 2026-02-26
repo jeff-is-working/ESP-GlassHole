@@ -20,7 +20,7 @@
  *
  * Forked from: github.com/yjeanrenaud/yj_nearbyglasses
  * License: AGPL-3.0
- * Author: Jeff Records / Circle 6 Systems
+ * Author: Jeff Records
  */
 
 #include <Arduino.h>

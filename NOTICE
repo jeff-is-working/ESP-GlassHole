@@ -1,8 +1,13 @@
 ESP-GlassHole
-Copyright 2025 Jeff Records / Circle 6 Systems
 
-Forked from yj_nearbyglasses by Yves Jeanrenaud
+Based on yj_nearbyglasses:
+  Copyright 2025 Yves Jeanrenaud
   https://github.com/yjeanrenaud/yj_nearbyglasses
+  Licensed under AGPL-3.0
+
+ESP32 firmware, expanded detection database, and CI pipeline:
+  Copyright 2025 Jeff Records
+  https://github.com/jeff-is-working/ESP-GlassHole
 
 This project includes or is informed by:
 
