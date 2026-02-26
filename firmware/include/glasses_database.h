@@ -67,18 +67,20 @@ static const GlassesCompanyID GLASSES_COMPANY_IDS[] = {
     { 0x0040, "Seiko Epson",                 "Moverio BT Series",     true,  TIER_MEDIUM },
 
     // --- TIER LOW: Large ecosystems, high FP risk ---
-    { 0x004C, "Apple",                       "Vision Pro",             true,  TIER_LOW },
-    { 0x038F, "Xiaomi",                      "AI Glasses",             true,  TIER_LOW },
-    { 0x079A, "Oppo",                        "Air Glass",              true,  TIER_LOW },
-    { 0x027D, "Huawei Technologies",         "Eyewear",                false, TIER_LOW },
-    { 0x0075, "Samsung Electronics",         "AR Glasses (future)",    false, TIER_LOW },
-    { 0x0171, "Amazon",                      "Echo Frames",            false, TIER_LOW },
-    { 0x009E, "Bose Corporation",            "Bose Frames",            false, TIER_LOW },
-    { 0x02C5, "Lenovo",                      "ThinkReality A3",        true,  TIER_LOW },
-    { 0x02ED, "HTC Corporation",             "Vive XR Elite",          true,  TIER_LOW },
-    { 0x0B24, "ByteDance",                   "Pico XR",                true,  TIER_LOW },
-    { 0x068E, "Razer Inc",                   "Razer Anzu",             false, TIER_LOW },
-    { 0x0976, "Fauna Audio",                 "Fauna Glasses",          false, TIER_LOW },
+    // WARNING: These IDs match phones, headphones, laptops, etc. from the same company.
+    // Detections at this tier are NOT reliable indicators of smart glasses.
+    { 0x004C, "Apple",                       "Apple device (maybe Vision Pro)", true,  TIER_LOW },
+    { 0x038F, "Xiaomi",                      "Xiaomi device (maybe AI Glasses)", true,  TIER_LOW },
+    { 0x079A, "Oppo",                        "Oppo device (maybe Air Glass)",   true,  TIER_LOW },
+    { 0x027D, "Huawei Technologies",         "Huawei device (maybe Eyewear)",   false, TIER_LOW },
+    { 0x0075, "Samsung Electronics",         "Samsung device",                  false, TIER_LOW },
+    { 0x0171, "Amazon",                      "Amazon device (maybe Echo Frames)", false, TIER_LOW },
+    { 0x009E, "Bose Corporation",            "Bose device (maybe Frames)",      false, TIER_LOW },
+    { 0x02C5, "Lenovo",                      "Lenovo device (maybe ThinkReality)", true,  TIER_LOW },
+    { 0x02ED, "HTC Corporation",             "HTC device (maybe Vive XR)",      true,  TIER_LOW },
+    { 0x0B24, "ByteDance",                   "ByteDance device (maybe Pico)",   true,  TIER_LOW },
+    { 0x068E, "Razer Inc",                   "Razer device (maybe Anzu)",       false, TIER_LOW },
+    { 0x0976, "Fauna Audio",                 "Fauna Glasses",                   false, TIER_LOW },
 
     // --- End sentinel ---
     { 0x0000, NULL, NULL, false, 0 }
