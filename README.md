@@ -8,6 +8,18 @@ ESP32 firmware that passively detects AR/smart glasses via Bluetooth Low Energy 
 
 > **WARNING:** Harassing someone because you suspect they are wearing a recording device can be a criminal offence. **Do not harass anyone.** False positives are inherent in BLE-based detection. A detection alert does not prove someone is recording you.
 
+## Origin & Attribution
+
+This repository is a GitHub fork of [**Nearby Glasses**](https://github.com/yjeanrenaud/yj_nearbyglasses) by [Yves Jeanrenaud](https://github.com/yjeanrenaud), an Android app that detects smart glasses via BLE. His project pioneered the idea of using BLE company IDs as a practical signal-intelligence method for identifying smart glasses in the wild, and his research into which Bluetooth SIG assigned numbers correspond to glasses manufacturers directly informed the design of this project.
+
+**ESP-GlassHole is a ground-up reimplementation for ESP32 microcontrollers. No upstream code was copied or translated.**
+
+- The upstream app is **Kotlin/Android** (Activities, Services, UI). This project is **C++/Arduino** (bare-metal firmware, GPIO, serial JSON). The two share zero lines of code.
+- The detection database was rebuilt independently from public sources — the [Bluetooth SIG Assigned Numbers](https://www.bluetooth.com/specifications/assigned-numbers/) registry, the [Nordic Semiconductor bluetooth-numbers-database](https://github.com/NordicSemiconductor/bluetooth-numbers-database), and several other open-source projects ([glass-detect](https://github.com/sh4d0wm45k/glass-detect), [banrays](https://github.com/NullPxl/banrays), [ouispy-detector](https://github.com/colonelpanichacks/ouispy-detector)). The four company IDs shared with the upstream project (`0x01AB`, `0x058E`, `0x0D53`, `0x03C2`) are publicly assigned Bluetooth SIG numbers, not proprietary data.
+- The upstream Android source was [removed](https://github.com/jeff-is-working/ESP-GlassHole/commit/3157c0a) once the ESP32 firmware was complete. The fork relationship is maintained on GitHub for provenance and proper attribution.
+
+The original Android app remains available at the [upstream repository](https://github.com/yjeanrenaud/yj_nearbyglasses). This project is independently maintained and is not affiliated with the upstream author. See [NOTICE](NOTICE) for full copyright details.
+
 ## How It Works
 
 Smart glasses broadcast BLE advertisement packets containing a **manufacturer-specific data** field. The first two bytes identify the company (assigned by the Bluetooth SIG). This company ID is mandatory per the Bluetooth specification and cannot be randomized, unlike MAC addresses (which Meta Ray-Bans do randomize).
@@ -216,12 +228,6 @@ To add a new glasses manufacturer, edit [`firmware/include/glasses_database.h`](
 - **Device name pattern**: `GLASSES_NAME_PATTERNS[]` — case-insensitive substring match
 - **MAC OUI prefix**: `GLASSES_OUI_PREFIXES[]` — from IEEE MA-L registry or field captures
 - **Service UUID**: `GLASSES_SERVICE_UUIDS[]` — 16-bit BLE service UUIDs
-
-## Origin
-
-This project is a [fork](https://github.com/yjeanrenaud/yj_nearbyglasses) of **Nearby Glasses** by [Yves Jeanrenaud](https://github.com/yjeanrenaud), an Android app that detects smart glasses via BLE. ESP-GlassHole is a complete reimplementation for ESP32 microcontrollers — no upstream code is used, but the detection concept and BLE company ID research informed the design.
-
-The original Android app source is available at the [upstream repository](https://github.com/yjeanrenaud/yj_nearbyglasses). This project is independently maintained and is not affiliated with the upstream author.
 
 ## Related Projects
 
