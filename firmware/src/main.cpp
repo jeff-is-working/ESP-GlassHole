@@ -99,6 +99,7 @@ uint32_t totalScans = 0;
 uint32_t totalDetections = 0;
 uint32_t lastStatusTime = 0;
 uint32_t lastHeartbeatTime = 0;
+bool     scanInProgress = false;
 
 // ============================================================
 // LED Control
@@ -471,6 +472,15 @@ class GlassholeScanCallbacks : public BLEAdvertisedDeviceCallbacks {
 };
 
 // ============================================================
+// Async Scan Complete Callback
+// ============================================================
+
+void onScanComplete(BLEScanResults results) {
+    totalScans++;
+    scanInProgress = false;
+}
+
+// ============================================================
 // Setup
 // ============================================================
 
@@ -530,14 +540,14 @@ void setup() {
 // ============================================================
 
 void loop() {
-    // Run BLE scan (non-blocking via callback)
-    BLEScanResults results = pBLEScan->start(BLE_SCAN_TIME, false);
-    totalScans++;
+    // Start async BLE scan if not already running
+    if (!scanInProgress) {
+        pBLEScan->clearResults();
+        pBLEScan->start(BLE_SCAN_TIME, onScanComplete, false);
+        scanInProgress = true;
+    }
 
-    // Clear scan results to free memory
-    pBLEScan->clearResults();
-
-    // Update LED state
+    // Update LED state (runs every loop iteration — smooth blinking)
     updateLED();
 
     // Periodic status
@@ -553,9 +563,6 @@ void loop() {
         lastHeartbeatTime = now;
     }
 
-    // Brief pause between scans
-    delay(100);
-
-    // Update LED between scans
-    updateLED();
+    // Small yield to avoid starving other tasks
+    delay(10);
 }
